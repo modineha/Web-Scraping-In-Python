@@ -11,10 +11,10 @@ short_desc = [sd.get_text() for sd in seven_day_data.select(".tombstone-containe
 temp = [t.get_text() for t in seven_day_data.select(".tombstone-container .temp")]
 img_desc = [d["title"] for d in seven_day_data.select(".tombstone-container img")]
 
-print(periods)
-print(short_desc)
-print(temp)
-print(img_desc)
+#print(periods)
+#print(short_desc)
+#print(temp)
+#print(img_desc)
 
 # Creating table using pandas dataframe.
 weather = pd.DataFrame({
@@ -23,19 +23,20 @@ weather = pd.DataFrame({
 		"TEMP" : temp,
 		"IMAGE_DESC" : img_desc
 		})
-weather
+print weather
 
 # Here we are extracting numerical values from TEMP column.
 temp_nums = weather["TEMP"].str.extract("(?P<temp_num>\d+)", expand=False)
 weather["temp_num"] = temp_nums.astype('int')
-temp_nums
+print " Temperature value as numrical value : "+temp_nums
 
 # Calculating mean
-weather["temp_num"].mean()
+print ' Mean value : '
+print weather["temp_num"].mean()
 
 # Selecting rows that happen at night only
 is_night = weather["TEMP"].str.contains("Low")
 weather["is_night"] = is_night
 is_night
 
-weather[is_night]
+print weather["is_night"]
